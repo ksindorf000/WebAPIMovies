@@ -167,6 +167,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MovieController.cs" />
     <Compile Include="Controllers\ReviewController.cs" />
+    <Compile Include="Controllers\ReviewerController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -179,10 +180,23 @@
     <Compile Include="Migrations\201702271912554_AddedReviews.Designer.cs">
       <DependentUpon>201702271912554_AddedReviews.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702271959116_AddedReviewerMovedFieldsFromReview.cs" />
+    <Compile Include="Migrations\201702271959116_AddedReviewerMovedFieldsFromReview.Designer.cs">
+      <DependentUpon>201702271959116_AddedReviewerMovedFieldsFromReview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702272001049_AddedReviewerDbSet.cs" />
+    <Compile Include="Migrations\201702272001049_AddedReviewerDbSet.Designer.cs">
+      <DependentUpon>201702272001049_AddedReviewerDbSet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702272012517_ChangedRatingFromIntToDouble.cs" />
+    <Compile Include="Migrations\201702272012517_ChangedRatingFromIntToDouble.Designer.cs">
+      <DependentUpon>201702272012517_ChangedRatingFromIntToDouble.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationContext.cs" />
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Models\Review.cs" />
+    <Compile Include="Models\Reviewer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -241,6 +255,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702271912554_AddedReviews.resx">
       <DependentUpon>201702271912554_AddedReviews.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702271959116_AddedReviewerMovedFieldsFromReview.resx">
+      <DependentUpon>201702271959116_AddedReviewerMovedFieldsFromReview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702272001049_AddedReviewerDbSet.resx">
+      <DependentUpon>201702272001049_AddedReviewerDbSet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702272012517_ChangedRatingFromIntToDouble.resx">
+      <DependentUpon>201702272012517_ChangedRatingFromIntToDouble.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
