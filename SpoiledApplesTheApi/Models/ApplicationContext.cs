@@ -8,6 +8,6 @@ namespace SpoiledApplesTheApi.Models
 {
     public class ApplicationContext : DbContext
     {
-        DbSet<Movie> Movies { get; set; }
+       public DbSet<Movie> Movies { get; set; }
     }
 }
