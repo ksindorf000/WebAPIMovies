@@ -166,6 +166,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MovieController.cs" />
+    <Compile Include="Controllers\ReviewController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -174,9 +175,14 @@
     <Compile Include="Migrations\201702271833174_Initial.Designer.cs">
       <DependentUpon>201702271833174_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702271912554_AddedReviews.cs" />
+    <Compile Include="Migrations\201702271912554_AddedReviews.Designer.cs">
+      <DependentUpon>201702271912554_AddedReviews.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationContext.cs" />
     <Compile Include="Models\Movie.cs" />
+    <Compile Include="Models\Review.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -232,6 +238,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201702271833174_Initial.resx">
       <DependentUpon>201702271833174_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702271912554_AddedReviews.resx">
+      <DependentUpon>201702271912554_AddedReviews.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
