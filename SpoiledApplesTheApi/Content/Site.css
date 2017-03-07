@@ -15,3 +15,11 @@ select,
 textarea {
     max-width: 280px;
 }
+
+#movies img {
+    max-height: 200px;
+}
+
+#movies td, th {
+    padding: 5px;
+}
