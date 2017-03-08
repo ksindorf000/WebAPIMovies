@@ -16,12 +16,12 @@
         var tbody = $("#movies");
         tbody.empty();
 
-        $("#title").append("All Movies");
-        $("#mtitle").append("Title");
-        $("#mgenre").append("Genre");
-        $("#mavg").append("Average" + "<br/>" + "Rating");
-        $("#mIMDB").append("IMDB");
-        $("#mrdate").append("Release" + "<br/>" + "Date");
+        $("#title").empty().append("All Movies");
+        $("#mtitle").empty().append("Title");
+        $("#mgenre").empty().append("Genre");
+        $("#mavg").empty().append("Average" + "<br/>" + "Rating");
+        $("#mIMDB").empty().append("IMDB");
+        $("#mrdate").empty().append("Release" + "<br/>" + "Date");
 
         for (m in resp) {
 
@@ -45,6 +45,52 @@
         }
     };
 
+    /**************ALL PEOPLE (reviewers)*****************/
+    //Button
+    $("#allpeople").click(function () {
+        $.get("http://localhost:59180/api/Reviewer",
+			function (resp) {
+			    console.log(resp);
+			    people(resp);
+			}
+		);
+
+    });
+
+    //Function to display all people
+    function people(resp) {
+
+        var tbody = $("reviews");
+        tbody.empty();
+
+        //Display People
+        var rtable = $("#reviews");
+
+        $("#rtitle").empty().append("Reviewers");
+        $("#rname").empty().append("Reviewer Name");
+        $("#age").empty().append("Age");
+        $("#gender").empty().append("Gender");
+        $("#occ").empty().append("Occupation");
+
+        for (r in resp) {
+
+            var name = resp[r].Name;
+            var age = resp[r].Age;
+            var gender = resp[r].Gender;
+            var occ = resp[r].Occupation;
+
+            rtable.append(
+                 "<tr><td>" + name
+                + "</td><td>" + age
+                + "</td><td>" + gender
+                + "</td><td>" + occ
+                + "</td><td>"
+                + "</td></tr>");
+        }
+
+    };
+
+
 });
 
 /**************REVIEWS BY MOVIE*****************/
@@ -53,8 +99,6 @@ function movieBtnClick(id) {
 
     $.get("http://localhost:59180/api/Review/" + id,
         function (resp) {
-            console.log(resp);
-            console.log(resp[0]);
             console.log(resp[0].Reviewer.Name);
             console.log(resp[0].Movie.Title);
             displayReviews(resp);
@@ -93,7 +137,7 @@ function displayReviews(resp) {
         + "</td><td>" + avg
         + "</td><td><a href=\"" + imdb + "\">IMDB Link</a>"
         + "</td><td>" + rdate
-        + "</td><td><button onclick=\"movieBtnClick(" + id + ")\">Get Reviews</button>"
+        + "</td><td>"
         + "</td></tr>");
 
 
@@ -102,19 +146,32 @@ function displayReviews(resp) {
 
     $("#rtitle").empty().append("Reviews");
     $("#rname").empty().append("Reviewer Name");
+    $("#age").empty().append("Age");
+    $("#gender").empty().append("Gender");
+    $("#occ").empty().append("Occupation");
     $("#rate").empty().append("Rating");
 
     for (r in resp) {
 
         var name = resp[r].Reviewer.Name;
+        var age = resp[r].Reviewer.Age;
+        var gender = resp[r].Reviewer.Gender;
+        var occupation = resp[r].Reviewer.Occupation;
         var rating = resp[r].Rating;
 
-        rtable.empty().append(
-            "<tr><td>" + name
+        rtable.append(
+             "<tr><td>" + name
+            + "</td><td>" + age
+            + "</td><td>" + gender
+            + "</td><td>" + occupation
             + "</td><td>" + rating
             + "</td></tr>");
     }
 
 };
+
+
+
+
 
 

@@ -1,10 +1,13 @@
 ﻿<div class="jumbotron" id="jumbo">
     <h1>Spoiled Apples</h1>
     <p class="lead">Movie reviews by random people...</p>
-    <p><button id="allmovies" class="btn btn-primary btn-lg">All Movies</button></p>
+    <p>
+        <button id="allmovies" class="btn btn-primary btn-lg">All Movies</button>
+        <button id="allpeople" class="btn btn-primary btn-lg">All Reviewers</button>
+    </p>
 </div>
 <div class="container">
-        <!----------ALL MOVIES-------------->
+        <!----------MOVIE DETAILS-------------->
     <h2 id="title"></h2>
     <table>
         <thead>
@@ -20,15 +23,19 @@
         <tbody id="movies"></tbody>
     </table>
     
-        <!----------REVIEW DETAILS------------->
+        <!----------REVIEW/REVIEWER DETAILS------------->
     <h2 id="rtitle"></h2>
     <table>
         <thead>
             <tr>
                 <th id="rname"></th>
+                <th id="age"></th>
+                <th id="gender"></th>
+                <th id="occ"></th>
                 <th id="rate"></th>
             </tr>
         </thead>
         <tbody id="reviews"></tbody>
     </table>
+
 </div>
