@@ -91,84 +91,85 @@
     };
 
 
-});
+    /**************REVIEWS BY MOVIE*****************/
+    //Button
+    function movieBtnClick(id) {
 
-/**************REVIEWS BY MOVIE*****************/
-//Button
-function movieBtnClick(id) {
+        $.get("http://localhost:59180/api/Review/" + id,
+            function (resp) {
+                console.log(resp[0].Reviewer.Name);
+                console.log(resp[0].Movie.Title);
+                displayReviews(resp);
+            }
+        );
+    };
 
-    $.get("http://localhost:59180/api/Review/" + id,
-        function (resp) {
-            console.log(resp[0].Reviewer.Name);
-            console.log(resp[0].Movie.Title);
-            displayReviews(resp);
-        }
-    );
-};
+    //Function
+    function displayReviews(resp) {
 
-//Function
-function displayReviews(resp) {
+        var mtable = $("#movies");
+        $("#jumbo").hide();
 
-    var mtable = $("#movies");
-    $("#jumbo").hide();
-   
-    var movie = resp[0].Movie;
+        var movie = resp[0].Movie;
 
-    //Display Movie
-    $("#title").empty().append("Movie Details");
-    $("#mtitle").empty().append("Title");
-    $("#mgenre").empty().append("Genre");
-    $("#mavg").empty().append("Average" + "<br/>" + "Rating");
-    $("#mIMDB").empty().append("IMDB");
-    $("#mrdate").empty().append("Release" + "<br/>" + "Date");
-    
-    var id = movie.Id;
-    var title = movie.Title;
-    var genre = movie.Genre;
-    var avg = movie.AverageRating;
-    var imdb = movie.IMDB;
-    var rdate = movie.ReleaseDate;
-    var img = movie.imgURL;
+        //Display Movie
+        $("#title").empty().append("Movie Details");
+        $("#mtitle").empty().append("Title");
+        $("#mgenre").empty().append("Genre");
+        $("#mavg").empty().append("Average" + "<br/>" + "Rating");
+        $("#mIMDB").empty().append("IMDB");
+        $("#mrdate").empty().append("Release" + "<br/>" + "Date");
 
-    mtable.empty().append(
-        "<tr><td>" + title + "<br/>"
-        + "<img src=\"" + img + "\" />"
-        + "</td><td>" + genre
-        + "</td><td>" + avg
-        + "</td><td><a href=\"" + imdb + "\">IMDB Link</a>"
-        + "</td><td>" + rdate
-        + "</td><td>"
-        + "</td></tr>");
+        var id = movie.Id;
+        var title = movie.Title;
+        var genre = movie.Genre;
+        var avg = movie.AverageRating;
+        var imdb = movie.IMDB;
+        var rdate = movie.ReleaseDate;
+        var img = movie.imgURL;
 
-
-    //Display Reviews
-    var rtable = $("#reviews");
-
-    $("#rtitle").empty().append("Reviews");
-    $("#rname").empty().append("Reviewer Name");
-    $("#age").empty().append("Age");
-    $("#gender").empty().append("Gender");
-    $("#occ").empty().append("Occupation");
-    $("#rate").empty().append("Rating");
-
-    for (r in resp) {
-
-        var name = resp[r].Reviewer.Name;
-        var age = resp[r].Reviewer.Age;
-        var gender = resp[r].Reviewer.Gender;
-        var occupation = resp[r].Reviewer.Occupation;
-        var rating = resp[r].Rating;
-
-        rtable.append(
-             "<tr><td>" + name
-            + "</td><td>" + age
-            + "</td><td>" + gender
-            + "</td><td>" + occupation
-            + "</td><td>" + rating
+        mtable.empty().append(
+            "<tr><td>" + title + "<br/>"
+            + "<img src=\"" + img + "\" />"
+            + "</td><td>" + genre
+            + "</td><td>" + avg
+            + "</td><td><a href=\"" + imdb + "\">IMDB Link</a>"
+            + "</td><td>" + rdate
+            + "</td><td>"
             + "</td></tr>");
-    }
 
-};
+
+        //Display Reviews
+        var rtable = $("#reviews");
+
+        $("#rtitle").empty().append("Reviews");
+        $("#rname").empty().append("Reviewer Name");
+        $("#age").empty().append("Age");
+        $("#gender").empty().append("Gender");
+        $("#occ").empty().append("Occupation");
+        $("#rate").empty().append("Rating");
+
+        for (r in resp) {
+
+            var name = resp[r].Reviewer.Name;
+            var age = resp[r].Reviewer.Age;
+            var gender = resp[r].Reviewer.Gender;
+            var occupation = resp[r].Reviewer.Occupation;
+            var rating = resp[r].Rating;
+
+            rtable.append(
+                 "<tr><td>" + name
+                + "</td><td>" + age
+                + "</td><td>" + gender
+                + "</td><td>" + occupation
+                + "</td><td>" + rating
+                + "</td></tr>");
+        }
+
+    };
+
+
+});
 
 
 
