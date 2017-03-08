@@ -20,6 +20,12 @@ textarea {
     max-height: 200px;
 }
 
-#movies td, th {
+td, th {
     padding: 5px;
+    width: 15%;
+}
+
+.container {
+    margin-left: 10%;
+    margin-right: 10%;
 }

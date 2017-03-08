@@ -192,6 +192,14 @@
     <Compile Include="Migrations\201702272012517_ChangedRatingFromIntToDouble.Designer.cs">
       <DependentUpon>201702272012517_ChangedRatingFromIntToDouble.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703080305159_RemovedMovieVirtualAccessorFromReviewModel.cs" />
+    <Compile Include="Migrations\201703080305159_RemovedMovieVirtualAccessorFromReviewModel.Designer.cs">
+      <DependentUpon>201703080305159_RemovedMovieVirtualAccessorFromReviewModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703080311128_AddedMovieVirtualAccessorBackToReviewModel.cs" />
+    <Compile Include="Migrations\201703080311128_AddedMovieVirtualAccessorBackToReviewModel.Designer.cs">
+      <DependentUpon>201703080311128_AddedMovieVirtualAccessorBackToReviewModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationContext.cs" />
     <Compile Include="Models\Movie.cs" />
@@ -249,7 +257,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Movies.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201702271833174_Initial.resx">
@@ -266,6 +273,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702272012517_ChangedRatingFromIntToDouble.resx">
       <DependentUpon>201702272012517_ChangedRatingFromIntToDouble.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703080305159_RemovedMovieVirtualAccessorFromReviewModel.resx">
+      <DependentUpon>201703080305159_RemovedMovieVirtualAccessorFromReviewModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703080311128_AddedMovieVirtualAccessorBackToReviewModel.resx">
+      <DependentUpon>201703080311128_AddedMovieVirtualAccessorBackToReviewModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

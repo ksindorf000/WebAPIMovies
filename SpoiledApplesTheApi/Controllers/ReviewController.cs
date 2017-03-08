@@ -36,7 +36,7 @@ namespace SpoiledApplesTheApi.Controllers
         }
         
         /*********************************
-         * GET Single (from MovieId)
+         * GET All (from MovieId)
          ********************************/
         [ResponseType(typeof(Review))]
         public IHttpActionResult Get(int? id)
@@ -46,7 +46,10 @@ namespace SpoiledApplesTheApi.Controllers
                 return NotFound();
             }
 
-            Review result = db.Reviews.Where(d => d.MovieId == id).FirstOrDefault();
+            List<Review> result = db.Reviews
+                .Where(r => r.MovieId == id)
+                .ToList();
+
             if (result == null)
             {
                 return NotFound();

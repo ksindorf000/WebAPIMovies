@@ -14,11 +14,7 @@ namespace SpoiledApplesTheApi.Controllers
 
             return View();
         }
-
-        [Route("Movies")]
-        public ActionResult Movies()
-        {
-            return View();
-        }
+        
+        
     }
 }

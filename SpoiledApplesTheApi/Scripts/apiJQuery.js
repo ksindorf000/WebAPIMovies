@@ -3,19 +3,26 @@
     /**************ALL MOVIES*****************/
     //Button
     $("#allmovies").click(function () {
-
         $.get("http://localhost:59180/api/Movie",
 			function (resp) {
-			    console.log(resp);
 			    allmovies(resp);
 			}
 		);
 
     });
-    //Function
+
+    //Function to display all movies
     function allmovies(resp) {
         var tbody = $("#movies");
         tbody.empty();
+
+        $("#title").append("All Movies");
+        $("#mtitle").append("Title");
+        $("#mgenre").append("Genre");
+        $("#mavg").append("Average" + "<br/>" + "Rating");
+        $("#mIMDB").append("IMDB");
+        $("#mrdate").append("Release" + "<br/>" + "Date");
+
         for (m in resp) {
 
             var id = resp[m].Id;
@@ -36,58 +43,81 @@
                 + "</td><td><button onclick=\"movieBtnClick(" + id + ")\">Get Reviews</button>"
                 + "</td></tr>");
         }
-
-        $("#title").append("All Movies");
-        $("#mtitle").append("Title");
-        $("#mgenre").append("Genre");
-        $("#mavg").append("Average"+"<br/>"+"Rating");
-        $("#mIMDB").append("IMDB");
-        $("#mrdate").append("Release" + "<br/>" + "Date");
-
     };
+
 });
 
-    /**************REVIEWS BY MOVIE*****************/
-    //Button
-    function movieBtnClick(id) {
+/**************REVIEWS BY MOVIE*****************/
+//Button
+function movieBtnClick(id) {
 
-        $.get("http://localhost:59180/api/Review/" + id,
-            function (resp) {
-			    console.log(resp);
-			   // reviews(resp);
-			}
-		);
-
-    };
-    //Function
-    function reviews(resp) {
-        var tbody = $("#reviews");
-        tbody.empty();
-        for (m in resp) {
-
-            var title = resp[m].Title;
-            var genre = resp[m].Genre;
-            var avg = resp[m].AverageRating;
-            var imdb = resp[m].IMDB;
-            var rdate = resp[m].ReleaseDate;
-            var img = resp[m].imgURL;
-
-            tbody.append(
-                "<tr><td>" + title + "<br/>"
-                + "<img src=\"" + img + "\" />"
-                + "</td><td>" + genre
-                + "</td><td>" + avg
-                + "</td><td><a href=\"" + imdb + "\">IMDB Link</a>"
-                + "</td><td>" + rdate
-                + "</td></tr>");
+    $.get("http://localhost:59180/api/Review/" + id,
+        function (resp) {
+            console.log(resp);
+            console.log(resp[0]);
+            console.log(resp[0].Reviewer.Name);
+            console.log(resp[0].Movie.Title);
+            displayReviews(resp);
         }
+    );
 
-        $("#title").append("All Movies");
-        $("#mtitle").append("Title");
-        $("#mgenre").append("Genre");
-        $("#mavg").append("Average" + "<br/>" + "Rating");
-        $("#mIMDB").append("IMDB");
-        $("#mrdate").append("Release" + "<br/>" + "Date");
+};
 
-    };
+//Function
+function displayReviews(resp) {
+
+    var mtable = $("#movies");
+    mtable.empty();
+    $("#jumbo").hide();
+   
+    var movie = resp[0].Movie;
+
+    //Display Movie
+    $("#title").append("Movie Details");
+    $("#mtitle").append("Title");
+    $("#mgenre").append("Genre");
+    $("#mavg").append("Average" + "<br/>" + "Rating");
+    $("#mIMDB").append("IMDB");
+    $("#mrdate").append("Release" + "<br/>" + "Date");
+    
+    var id = movie.Id;
+    var title = movie.Title;
+    var genre = movie.Genre;
+    var avg = movie.AverageRating;
+    var imdb = movie.IMDB;
+    var rdate = movie.ReleaseDate;
+    var img = movie.imgURL;
+
+    mtable.append(
+        "<tr><td>" + title + "<br/>"
+        + "<img src=\"" + img + "\" />"
+        + "</td><td>" + genre
+        + "</td><td>" + avg
+        + "</td><td><a href=\"" + imdb + "\">IMDB Link</a>"
+        + "</td><td>" + rdate
+        + "</td><td><button onclick=\"movieBtnClick(" + id + ")\">Get Reviews</button>"
+        + "</td></tr>");
+
+
+    //Display Reviews
+    var rtable = $("#reviews");
+    rtable.empty();
+
+    $("#rtitle").append("Reviews");
+    $("#rname").append("Reviewer Name");
+    $("#rate").append("Rating");
+
+    for (r in resp) {
+
+        var name = resp[r].Reviewer.Name;
+        var rating = resp[r].Rating;
+
+        rtable.append(
+            "<tr><td>" + name
+            + "</td><td>" + rating
+            + "</td></tr>");
+    }
+
+};
+
 
