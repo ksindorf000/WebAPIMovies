@@ -60,25 +60,23 @@ function movieBtnClick(id) {
             displayReviews(resp);
         }
     );
-
 };
 
 //Function
 function displayReviews(resp) {
 
     var mtable = $("#movies");
-    mtable.empty();
     $("#jumbo").hide();
    
     var movie = resp[0].Movie;
 
     //Display Movie
-    $("#title").append("Movie Details");
-    $("#mtitle").append("Title");
-    $("#mgenre").append("Genre");
-    $("#mavg").append("Average" + "<br/>" + "Rating");
-    $("#mIMDB").append("IMDB");
-    $("#mrdate").append("Release" + "<br/>" + "Date");
+    $("#title").empty().append("Movie Details");
+    $("#mtitle").empty().append("Title");
+    $("#mgenre").empty().append("Genre");
+    $("#mavg").empty().append("Average" + "<br/>" + "Rating");
+    $("#mIMDB").empty().append("IMDB");
+    $("#mrdate").empty().append("Release" + "<br/>" + "Date");
     
     var id = movie.Id;
     var title = movie.Title;
@@ -88,7 +86,7 @@ function displayReviews(resp) {
     var rdate = movie.ReleaseDate;
     var img = movie.imgURL;
 
-    mtable.append(
+    mtable.empty().append(
         "<tr><td>" + title + "<br/>"
         + "<img src=\"" + img + "\" />"
         + "</td><td>" + genre
@@ -101,18 +99,17 @@ function displayReviews(resp) {
 
     //Display Reviews
     var rtable = $("#reviews");
-    rtable.empty();
 
-    $("#rtitle").append("Reviews");
-    $("#rname").append("Reviewer Name");
-    $("#rate").append("Rating");
+    $("#rtitle").empty().append("Reviews");
+    $("#rname").empty().append("Reviewer Name");
+    $("#rate").empty().append("Rating");
 
     for (r in resp) {
 
         var name = resp[r].Reviewer.Name;
         var rating = resp[r].Rating;
 
-        rtable.append(
+        rtable.empty().append(
             "<tr><td>" + name
             + "</td><td>" + rating
             + "</td></tr>");
