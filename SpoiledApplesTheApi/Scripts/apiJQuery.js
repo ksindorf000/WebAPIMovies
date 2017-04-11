@@ -2,26 +2,23 @@
 
     /**************ALL MOVIES*****************/
     //Button
-    $("#allmovies").click(function () {
+    $("#allMovies").click(function () {
         $.get("http://localhost:59180/api/Movie",
 			function (resp) {
-			    allmovies(resp);
+			    allMovies(resp);
 			}
 		);
-
     });
 
     //Function to display all movies
-    function allmovies(resp) {
+    function allMovies(resp) {
+        $("#people").addClass("hidden");
+        $("#movieDetails").removeClass("hidden");
+
         var tbody = $("#movies");
         tbody.empty();
 
         $("#title").empty().append("All Movies");
-        $("#mtitle").empty().append("Title");
-        $("#mgenre").empty().append("Genre");
-        $("#mavg").empty().append("Average" + "<br/>" + "Rating");
-        $("#mIMDB").empty().append("IMDB");
-        $("#mrdate").empty().append("Release" + "<br/>" + "Date");
 
         for (m in resp) {
 
@@ -45,20 +42,138 @@
         }
     };
 
-    /**************ALL PEOPLE (reviewers)*****************/
+    /**************PEOPLE(reviewers)*****************/
     //Button to get all People
-    $("#allpeople").click(function () {
+    $("#allPeople").click(function () {
         $.get("http://localhost:59180/api/Reviewer",
 			function (resp) {
 			    console.log(resp);
-			    people(resp);
+			    allPeople(resp);
 			}
 		);
-
     });
 
+    //Button to get all people for certain movie
+    function movieBtnClick(id) {
+        $.get("http://localhost:59180/api/Reviewer/" + id),
+            function (resp) {
+                console.log(resp);
+                allPeople(resp);
+            }
+    };
+
+    //Function to display reviewers
+    function allPeople(resp) {
+
+        $("#movieDetails").addClass("hidden");
+        $("#people").removeClass("hidden");
+
+        var tbody = $("#reviews");
+        tbody.empty();
+
+        $("#title").empty().append("All Reviewers");
+
+        //Display People
+        var rtable = $("#reviews");
+        
+        for (r in resp) {
+
+            var name = resp[r].Name;
+            var age = resp[r].Age;
+            var gender = resp[r].Gender;
+            var occ = resp[r].Occupation;
+            var rating = resp[r].Rating;
+
+            rtable.append(
+                 "<tr><td>" + name
+                + "</td><td>" + age
+                + "</td><td>" + gender
+                + "</td><td>" + occ
+                + "</td><td>" + rating
+                + "</td></tr>");
+        }
+
+    };
+
+
+    /**************REVIEWS BY MOVIE*****************/
+    //Button
+    function movieBtnClick(id) {
+
+        $.get("http://localhost:59180/api/Review/" + id,
+            function (reviewbymovie) {
+                console.log(reviewbymovie[0].Reviewer.Name);
+                console.log(reviewbymovie[0].Movie.Title);
+                displayReviews(reviewbymovie);
+            }
+        );
+    };
+
+    //Function
+    function displayReviews(reviewbymovie) {
+
+        var mtable = $("#movies");
+
+        var movie = reviewbymovie[0].Movie;
+
+        //Display Movie
+        $("#title").empty().append("Movie Details");
+        $("#mtitle").empty().append("Title");
+        $("#mgenre").empty().append("Genre");
+        $("#mavg").empty().append("Average" + "<br/>" + "Rating");
+        $("#mIMDB").empty().append("IMDB");
+        $("#mrdate").empty().append("Release" + "<br/>" + "Date");
+
+        var id = movie.Id;
+        var title = movie.Title;
+        var genre = movie.Genre;
+        var avg = movie.AverageRating;
+        var imdb = movie.IMDB;
+        var rdate = movie.ReleaseDate;
+        var img = movie.imgURL;
+
+        mtable.empty().append(
+            "<tr><td>" + title + "<br/>"
+            + "<img src=\"" + img + "\" />"
+            + "</td><td>" + genre
+            + "</td><td>" + avg
+            + "</td><td><a href=\"" + imdb + "\">IMDB Link</a>"
+            + "</td><td>" + rdate
+            + "</td><td>"
+            + "</td></tr>");
+
+
+        //Display Reviews
+        var rtable = $("#reviews");
+
+        $("#rtitle").empty().append("Reviews");
+        $("#rname").empty().append("Reviewer Name");
+        $("#age").empty().append("Age");
+        $("#gender").empty().append("Gender");
+        $("#occ").empty().append("Occupation");
+        $("#rate").empty().append("Rating");
+
+        for (r in reviewbymovie) {
+
+            var name = reviewbymovie[r].Reviewer.Name;
+            var age = reviewbymovie[r].Reviewer.Age;
+            var gender = reviewbymovie[r].Reviewer.Gender;
+            var occupation = reviewbymovie[r].Reviewer.Occupation;
+            var rating = reviewbymovie[r].Rating;
+
+            rtable.append(
+                 "<tr><td>" + name
+                + "</td><td>" + age
+                + "</td><td>" + gender
+                + "</td><td>" + occupation
+                + "</td><td>" + rating
+                + "</td></tr>");
+        }
+
+    };
+
     //Function to Sort by Age
-    $("#sortage").click(function () {
+    $("#sortAge").click(function () {
 
         $.get("http://localhost:59180/api/Reviewer",
                 people(function (resp) {
@@ -67,149 +182,32 @@
                     });
                 }));
 
-    } );
+    });
 
     //Function to Sort by Occupation
     /* https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/sort */
-    $("#sortocc").click(function () {
+    $("#sortOcc").click(function () {
 
         $.get("http://localhost:59180/api/Reviewer",
-               people( function (resp) {
-                    resp.sort(function (a, b) {
-                        var occA = a.Occupation.toUpperCase(); // ignore upper and lowercase
-                        var occB = b.Occupation.toUpperCase(); // ignore upper and lowercase
-                        if (occA < occB) {
-                            return -1;
-                        }
-                        if (occA > occB) {
-                            return 1;
-                        }
+               people(function (resp) {
+                   resp.sort(function (a, b) {
+                       var occA = a.Occupation.toUpperCase(); // ignore upper and lowercase
+                       var occB = b.Occupation.toUpperCase(); // ignore upper and lowercase
+                       if (occA < occB) {
+                           return -1;
+                       }
+                       if (occA > occB) {
+                           return 1;
+                       }
 
-                        // names must be equal
-                        return 0;
-                    });
-                }) );
+                       // names must be equal
+                       return 0;
+                   });
+               }));
 
     });
 
-    //Function to display all people
-    function people(resp) {
-
-        $("#moviedetails").hide();
-
-        var tbody = $("reviews");
-        tbody.empty();
-
-        //Display People
-        var rtable = $("#reviews");
-
-        $("#rtitle").empty().append("Reviewers");
-        $("#rname").empty().append("Name");
-        $("#age").empty().append("<a href=\"#\" id=\"sortage\">Age</a>");
-        $("#gender").empty().append("Gender");
-        $("#occ").empty().append("<a href=\"#\" id=\"sortocc\">Occupation</a>");
-
-        for (r in resp) {
-
-            var name = resp[r].Name;
-            var age = resp[r].Age;
-            var gender = resp[r].Gender;
-            var occ = resp[r].Occupation;
-
-            rtable.append(
-                 "<tr><td>" + name
-                + "</td><td>" + age
-                + "</td><td>" + gender
-                + "</td><td>" + occ
-                + "</td><td>"
-                + "</td></tr>");
-        }
-
-    };
 
 });
-
-/**************REVIEWS BY MOVIE*****************/
-//Button
-function movieBtnClick(id) {
-
-    $.get("http://localhost:59180/api/Review/" + id,
-        function (reviewbymovie) {
-            console.log(reviewbymovie[0].Reviewer.Name);
-            console.log(reviewbymovie[0].Movie.Title);
-            displayReviews(reviewbymovie);
-        }
-    );
-};
-
-//Function
-function displayReviews(reviewbymovie) {
-
-    var mtable = $("#movies");
-
-    var movie = reviewbymovie[0].Movie;
-
-    //Display Movie
-    $("#title").empty().append("Movie Details");
-    $("#mtitle").empty().append("Title");
-    $("#mgenre").empty().append("Genre");
-    $("#mavg").empty().append("Average" + "<br/>" + "Rating");
-    $("#mIMDB").empty().append("IMDB");
-    $("#mrdate").empty().append("Release" + "<br/>" + "Date");
-
-    var id = movie.Id;
-    var title = movie.Title;
-    var genre = movie.Genre;
-    var avg = movie.AverageRating;
-    var imdb = movie.IMDB;
-    var rdate = movie.ReleaseDate;
-    var img = movie.imgURL;
-
-    mtable.empty().append(
-        "<tr><td>" + title + "<br/>"
-        + "<img src=\"" + img + "\" />"
-        + "</td><td>" + genre
-        + "</td><td>" + avg
-        + "</td><td><a href=\"" + imdb + "\">IMDB Link</a>"
-        + "</td><td>" + rdate
-        + "</td><td>"
-        + "</td></tr>");
-
-
-    //Display Reviews
-    var rtable = $("#reviews");
-
-    $("#rtitle").empty().append("Reviews");
-    $("#rname").empty().append("Reviewer Name");
-    $("#age").empty().append("Age");
-    $("#gender").empty().append("Gender");
-    $("#occ").empty().append("Occupation");
-    $("#rate").empty().append("Rating");
-
-    for (r in reviewbymovie) {
-
-        var name = reviewbymovie[r].Reviewer.Name;
-        var age = reviewbymovie[r].Reviewer.Age;
-        var gender = reviewbymovie[r].Reviewer.Gender;
-        var occupation = reviewbymovie[r].Reviewer.Occupation;
-        var rating = reviewbymovie[r].Rating;
-
-        rtable.append(
-             "<tr><td>" + name
-            + "</td><td>" + age
-            + "</td><td>" + gender
-            + "</td><td>" + occupation
-            + "</td><td>" + rating
-            + "</td></tr>");
-    }
-
-};
-
-
-
-
-
-
-
 
 

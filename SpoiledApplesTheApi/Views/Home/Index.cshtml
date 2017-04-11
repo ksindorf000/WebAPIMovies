@@ -2,22 +2,22 @@
     <h1>Spoiled Apples</h1>
     <p class="lead">Movie reviews by random people...</p>
     <p>
-        <button id="allmovies" class="btn btn-primary btn-lg">All Movies</button>
-        <button id="allpeople" class="btn btn-primary btn-lg">All Reviewers</button>
+        <button id="allMovies" class="btn btn-primary btn-lg">All Movies</button>
+        <button id="allPeople" class="btn btn-primary btn-lg">All Reviewers</button>
     </p>
 </div>
 <div class="container">
     <!----------MOVIE DETAILS-------------->
-    <div id="moviedetails">
-        <h2 id="title"></h2>
+    <div id="movieDetails" class="hidden">
+        <h2>All Movies</h2>
         <table>
             <thead>
                 <tr>
-                    <th id="mtitle"></th>
-                    <th id="mgenre"></th>
-                    <th id="mavg"></th>
-                    <th id="mIMDB"></th>
-                    <th id="mrdate"></th>
+                    <th>Title</th>
+                    <th>Genre</th>
+                    <th>Average</th>
+                    <th>IMDB</th>
+                    <th>Release Date</th>
                     <th></th>
                 </tr>
             </thead>
@@ -26,18 +26,20 @@
     </div>
 
     <!----------REVIEW/REVIEWER DETAILS------------->
-    <h2 id="rtitle"></h2>
-    <table>
-        <thead>
-            <tr>
-                <th id="rname"></th>
-                <th id="age"></th>
-                <th id="gender"></th>
-                <th id="occ"></th>
-                <th id="rate"></th>
-            </tr>
-        </thead>
-        <tbody id="reviews"></tbody>
-    </table>
+    <div id="people" class="hidden">
+        <h2>Reviewers</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Genre</th>
+                    <th>Occupation</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="reviews"></tbody>
+        </table>
+    </div>
 
 </div>
